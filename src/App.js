@@ -6,7 +6,7 @@ import { Cards, Charts, CountryPicker } from './components';
 import styles from './App.module.css';
 import { fetchData } from './api';
 
-import coronImage from './images/image.png';
+import coronImage from './images/images.jpg';
 
 class App extends React.Component {
     //a state to push data to components
