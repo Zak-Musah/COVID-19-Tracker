@@ -1,6 +1,9 @@
 import React from "react";
 import MapView from "./components/Map/MapView";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import { Container, Row, Col } from "react-bootstrap";
+
 // import ReactDOM from 'react-dom';
 // import App from './App';
 
@@ -34,9 +37,9 @@ class App extends React.Component {
     //deconstruct before passing to the cards componentt
     const { data, country } = this.state;
     return (
-      <Container fluid className="map-charts-container">
+      <Container fluid className={styles.containerfluid}>
         <Row>
-          <Col sm={12} md={6}>
+          <Col sm={12} md={6} className={styles.charts}>
             <MapView />
           </Col>
           <Col sm={12} md={6}>
