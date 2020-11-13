@@ -1,4 +1,6 @@
-.formcontrol{
-    width: 30%;
-    margin-bottom: 30px !important;
+.formcontrol {
+  width: 30%;
+  margin-bottom: 40px !important;
+
+  margin-left: 250px;
 }

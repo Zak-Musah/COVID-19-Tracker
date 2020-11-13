@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { fetchDailyData, fetchLongLat } from "../../api";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Tooltip, CircleMarker } from "react-leaflet";
 import HexBin from "./MapHexbins";
 import styles from "./Map.module.css";
 import "leaflet/dist/leaflet.css";
@@ -8,6 +8,8 @@ import L from "leaflet";
 function MapView() {
   const map = useRef();
   const [data, setData] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [longlat, setlonglat] = useState([]);
   useEffect(() => {
     const fetchCoords = async () => {
       let countryDetails = await fetchLongLat();
@@ -15,10 +17,11 @@ function MapView() {
         let features = [];
         Object.keys(countryDetails).forEach((key, i) => {
           let lonlat = countryDetails[key];
-          console.log(lonlat);
           if (lonlat.includes(null)) {
             return;
           }
+          setCountries((p) => [...p, key]);
+          setlonglat((p) => [...p, lonlat]);
           features.push({
             type: "Feature",
             id: i,
@@ -38,15 +41,13 @@ function MapView() {
 
     fetchCoords();
   }, []);
-  console.log(data);
-
   return (
     <div className={styles.map}>
       <MapContainer
         style={{ height: "100vh" }}
         ref={map}
-        center={[51.406502, 12.422398]}
-        zoom={15}
+        center={[0, 0]}
+        zoom={2}
       >
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -59,7 +60,7 @@ function MapView() {
               L.HexbinLayer = ref;
             }}
             data={data}
-            // {...options}
+            country={countries}
           />
         )}
       </MapContainer>

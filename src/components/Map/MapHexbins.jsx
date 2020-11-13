@@ -4,7 +4,8 @@ import L from "leaflet";
 import "@asymmetrik/leaflet-d3";
 
 export default function HexBin(props) {
-  console.log(props);
+  let coordinates;
+  const { country } = props;
   const context = useLeafletContext();
   useEffect(() => {
     const layerContainer = context.layerContainer || context.map;
@@ -17,7 +18,7 @@ export default function HexBin(props) {
         feat.geometry.hasOwnProperty("type") &&
         feat.geometry.type === "Point",
     );
-    const coordinates = points.map((feat) => feat.geometry.coordinates);
+    coordinates = points.map((feat) => feat.geometry.coordinates);
     let layer = createLeafletElement();
     layer.data(coordinates);
     layerContainer.addLayer(layer);
@@ -29,12 +30,11 @@ export default function HexBin(props) {
       .hoverHandler(
         L.HexbinHoverHandler.tooltip({
           tooltipContent(d) {
-            console.log(d);
-            return "Count: " + d.length;
+            return "Geospatial clustering analytics coming soon !!";
           },
         }),
       )
-      .colorRange(["#008000", "#FF0000"]);
+      .colorRange(["#008000", "#008000"]);
   };
 
   return null;
