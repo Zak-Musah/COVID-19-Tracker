@@ -5,7 +5,7 @@ import "@asymmetrik/leaflet-d3";
 
 export default function HexBin(props) {
   let coordinates;
-  const { country } = props;
+  const { countryData } = props;
   const context = useLeafletContext();
   useEffect(() => {
     const layerContainer = context.layerContainer || context.map;
@@ -30,11 +30,25 @@ export default function HexBin(props) {
       .hoverHandler(
         L.HexbinHoverHandler.tooltip({
           tooltipContent(d) {
-            return "Geospatial clustering analytics coming soon !!";
+            let values = [];
+            let country = "";
+            d.map((array1) => {
+              Object.keys(countryData).map((key) => {
+                if (countryData[key].includes(array1.o[0])) {
+                  country = key;
+                }
+              });
+            });
+            // const average = (array) => array.reduce((a, b) => a + b) / array.length;
+            // let averageValue = average(values);
+            return country;
           },
         }),
       )
-      .colorRange(["#008000", "#008000"]);
+      .colorRange(["#008000", "#008000"])
+      .colorValue(function (d) {
+        return d.length;
+      });
   };
 
   return null;

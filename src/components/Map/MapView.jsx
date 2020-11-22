@@ -1,27 +1,30 @@
 import React, { useRef, useState, useEffect } from "react";
-import { fetchDailyData, fetchLongLat } from "../../api";
-import { MapContainer, TileLayer, Tooltip, CircleMarker } from "react-leaflet";
-import HexBin from "./MapHexbins";
 import styles from "./Map.module.css";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-function MapView() {
+import { MapContainer, TileLayer, Tooltip, CircleMarker } from "react-leaflet";
+
+import HexBin from "./MapHexbins";
+import { fetchLongLat } from "../../api";
+
+function MapView({ dataAllCountries: { confirmed, recovered, deaths } }) {
   const map = useRef();
   const [data, setData] = useState({});
-  const [countries, setCountries] = useState([]);
-  const [longlat, setlonglat] = useState([]);
+  const [countryData, setCountryData] = useState();
+  console.log(confirmed);
   useEffect(() => {
     const fetchCoords = async () => {
-      let countryDetails = await fetchLongLat();
+      const countryDetails = await fetchLongLat();
+
       if (countryDetails) {
         let features = [];
+        console.log(countryDetails);
         Object.keys(countryDetails).forEach((key, i) => {
           let lonlat = countryDetails[key];
           if (lonlat.includes(null)) {
             return;
           }
-          setCountries((p) => [...p, key]);
-          setlonglat((p) => [...p, lonlat]);
+          setCountryData(countryDetails);
           features.push({
             type: "Feature",
             id: i,
@@ -41,6 +44,7 @@ function MapView() {
 
     fetchCoords();
   }, []);
+
   return (
     <div className={styles.map}>
       <MapContainer
@@ -60,7 +64,7 @@ function MapView() {
               L.HexbinLayer = ref;
             }}
             data={data}
-            country={countries}
+            countryData={countryData}
           />
         )}
       </MapContainer>

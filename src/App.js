@@ -40,7 +40,7 @@ class App extends React.Component {
       <Container fluid className={styles.containerfluid}>
         <Row>
           <Col sm={12} md={6} className={styles.charts}>
-            <MapView />
+            <MapView dataAllCountries={data} />
           </Col>
           <Col sm={12} md={6}>
             <img className={styles.image} src={coronImage} alt="COVID-19" />
