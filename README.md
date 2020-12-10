@@ -1,5 +1,5 @@
 <p align="center" style="color: #343a40">
-  <h1 align="center">Covid 19 Track built with ReactJS</h1>
+  <h1 align="center">Covid 19 Tracker built with ReactJS</h1>
 </p>
 <p align="center" style="font-size: 1.2rem;">A Responsive Dashboard for global and country specific COVID-19 statistics using ReactJS,MaterialUI, ChartJS and a COVID-19 JSON API ,serving data from John Hopkins University</p>
 
